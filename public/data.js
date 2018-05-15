@@ -28,6 +28,8 @@
         ++totalSeconds;
         secondsLabel.innerHTML = pad(totalSeconds % 60);
         minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+        //for starting the time use: var time = setInterval(setTime,1000)
+        //for stoping the time use clearInterval(time)
       }
       pad(val) {
         var valString = val + "";
