@@ -1,38 +1,54 @@
-    /**
-     * @class Responsible for rendering posts and comments in the HTML
-     */
-    class PostsRenderer {
-      constructor() {
-          // this.$posts = $(".posts");
-          // this.$postTemplate = $('#post-template').html();
-          // this.$commentTemplate = $('#comment-template').html();
-      }
+/**
+ * @class Responsible for storing and manipulating Spacebook posts, in-memory
+ */
+class PostsRepository {
+    constructor() {
+        this.lessons = [];
+    }
   
-      renderPosts(posts) {
-  
-            // this.$posts.empty();
-            // let template = Handlebars.compile(this.$postTemplate);
-            // for (let i = 0; i < posts.length; i++) {
-            //   let newHTML = template(posts[i]);
-            //   console.log(newHTML);
-            //   this.$posts.append(newHTML);
-            //   this.renderComments(posts, i);
-            }
-              
-  
-         
+      initLesson(){
+
+         return $.get("/lessons") 
+                  .then((lessonsFromServer) => {
+                //   this.lessons = lessonsFromServer;
+                //       return this.lessons
+                    return lessonsFromServer
+                  })
+                  
+                  ////////
+                .catch(function (err) { res.send(err) })
       
-  
-      renderComments(posts, postIndex) {
-          // let post = $(".post")[postIndex];
-          // let $commentsList = $(post).find('.comments-list');
-          // $commentsList.empty();
-          // let template = Handlebars.compile(this.$commentTemplate);
-          // for (let i = 0; i < posts[postIndex].comments.length; i++) {
-          //   let newHTML = template(posts[postIndex].comments[i]);
-          //   $commentsList.append(newHTML);
-          // }
+                  
+        
       }
-  }
-  
-  export default PostsRenderer
+      
+
+      addPost(postText) {
+        //send newPost via ajax post request to be saved in DB, inside the express file
+        //ajax request to our server api
+
+        return $.post("/posts", { text: postText })
+            .then((newPost) => {
+                this.posts.push(newPost);
+            }
+            )
+
+        // this.posts.push({ text: postText, comments: [] });
+    }
+
+    removePost(index) {
+        this.posts.splice(index, 1);
+    }
+
+    addComment(newComment, postIndex) {
+        this.posts[postIndex].comments.push(newComment);
+    };
+
+    deleteComment(postIndex, commentIndex) {
+        this.posts[postIndex].comments.splice(commentIndex, 1);
+    };
+}
+
+export default PostsRepository
+
+     

@@ -1,23 +1,22 @@
 class EventsHandler {
   constructor(postsRepository, postsRenderer) {
-      // this.postsRepository = postsRepository;
-      // this.postsRenderer = postsRenderer;
+      this.postsRepository = postsRepository;
+      this.postsRenderer = postsRenderer;
       // this.$posts = $(".posts");
   }
 
-initLesson(){
-    var text = "gh gh gh gh ggg hhh ggg hhh ggg hhh"; // mock data
-    var dataArr= text.split("") // mock data
-  let highlight = "<span style='color:blue'>"+dataArr[0]+"</span>"
-  var output="";
-  output +=highlight;
-  for(let i=1; i<dataArr.length; i++){
-    output+=dataArr[i]
-  }
-  $(".paragraph").append(output)
+
+registerLessonStart(){
+
+  $(window).on("click", ()=>{
+    let lessonNum = 1 //$(this).data().id
+    let lessonNumIndex = lessonNum-1;
+    this.postsRepository.initLesson(lessonNumIndex)
+    .then((lessonsFromServer)=>{this.postsRenderer.renderinitLesson(lessonsFromServer, lessonNumIndex)}) ;
+  })
+
+
 }
-
-
 
 registerKey(){
     // onkeypress e.which 

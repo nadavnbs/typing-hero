@@ -12,7 +12,9 @@ let eventsHandler = new EventsHandler(postsRepository, postsRenderer);
 // })
 
 
-eventsHandler.initLesson();
+// postsRepository.initLesson().then((postFrompostreporsitory)=>{
+//   postsRenderer.renderinitLesson(postFrompostreporsitory);})
+eventsHandler.registerLessonStart()
 eventsHandler.registerKey();
 
 // init data

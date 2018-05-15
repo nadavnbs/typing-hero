@@ -8,20 +8,39 @@
           this.$commentTemplate = $('#comment-template').html();
       }
   
-      renderPosts(posts) {
-  
-            this.$posts.empty();
-            let template = Handlebars.compile(this.$postTemplate);
-            for (let i = 0; i < posts.length; i++) {
-              let newHTML = template(posts[i]);
-              console.log(newHTML);
-              this.$posts.append(newHTML);
-              this.renderComments(posts, i);
-            }
-              
-  
-         
+
+      renderinitLesson(lessonsFromServer, lessonNumIndex){
+          
+        
+            ////////
+            var text = lessonsFromServer[lessonNumIndex].text; // mock data
+            var dataArr= text.split("") // mock data
+          let highlight = "<span style='color:blue'>"+dataArr[0]+"</span>"
+          var output="";
+          output +=highlight;
+          for(let i=1; i<dataArr.length; i++){
+            output+=dataArr[i]
+          }
+
+          $(".paragraph").append(output)
+
+          
       }
+
+
+
+      // renderPosts(posts) {
+  
+      //       this.$posts.empty();
+      //       let template = Handlebars.compile(this.$postTemplate);
+      //       for (let i = 0; i < posts.length; i++) {
+      //         let newHTML = template(posts[i]);
+      //         console.log(newHTML);
+      //         this.$posts.append(newHTML);
+      //         this.renderComments(posts, i);
+      //       }
+
+      // }
   
       // renderComments(posts, postIndex) {
       //     let post = $(".post")[postIndex];

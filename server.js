@@ -121,6 +121,27 @@ app.use(express.static('node_modules'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+
+app.get("/lessons", function(req,res){
+  Lesson.find({}, function(err, lessons){
+    if(err) console.log(err)
+    res.json(lessons)
+    console.log(lessons)
+  })
+
+})
+
+app.get("/lessons/:lessonnum", function(req,res){
+  lessonnum = req.params.lessonnum;
+  Lesson.find({lessonNum:lessonnum}, function(err, lessons){
+    if(err) console.log(err)
+    res.json(lessons)
+    console.log(lessons)
+  })
+
+})
+
+
 // app.get("/posts", function(req,res){
 //   Post.find({}, function(err, posts){
 //     if(err) console.log(err)
