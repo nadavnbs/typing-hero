@@ -1,4 +1,3 @@
-
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
@@ -9,7 +8,42 @@ mongoose.connect('mongodb://localhost/typingheroDB', function() {
   console.log("DB connection established!!!");
 })
 
-var Lesson = require('./models/lessonModel');
+//design the two schema below and use sub docs 
+//to define the relationship between posts and comments
+
+
+// let commentSchema = new mongoose.Schema({
+//     text: String,
+//     user: String
+
+// });
+
+let statsSchema = new mongoose.Schema({
+  mistakes: Number,
+  time: Number
+})
+
+let lessonSchema = new mongoose.Schema({
+  lessonNum: Number,
+  text: String,
+  stats: [statsSchema]
+})
+
+
+
+// let postSchema = new mongoose.Schema({
+//     text: String,
+//     comments:[commentSchema]
+
+// });
+
+// let Post = mongoose.model('post', postSchema)
+
+let Lesson = mongoose.model("lesson", lessonSchema)
+
+
+/////
+// var Lesson = require('./models/lessonModel');
 ////
 
 ////
@@ -73,11 +107,11 @@ var lesson5 = new Lesson({
   }]
 })
 
-  lesson1.save();
-  lesson2.save();
-  lesson3.save();
-  lesson4.save();
-  lesson5.save();
+  // lesson1.save();
+  // lesson2.save();
+  // lesson3.save();
+  // lesson4.save();
+  // lesson5.save();
 
 ////
 var app = express();

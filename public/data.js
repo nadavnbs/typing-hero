@@ -1,38 +1,43 @@
+    import newApi from './api.js'
+    
     /**
      * @class Responsible for rendering posts and comments in the HTML
      */
     class PostsRenderer {
       constructor() {
+          this.lesson = []
           // this.$posts = $(".posts");
           // this.$postTemplate = $('#post-template').html();
           // this.$commentTemplate = $('#comment-template').html();
       }
-  
-      renderPosts(posts) {
-  
-            // this.$posts.empty();
-            // let template = Handlebars.compile(this.$postTemplate);
-            // for (let i = 0; i < posts.length; i++) {
-            //   let newHTML = template(posts[i]);
-            //   console.log(newHTML);
-            //   this.$posts.append(newHTML);
-            //   this.renderComments(posts, i);
-            }
-              
-  
-         
-      
-  
-      renderComments(posts, postIndex) {
-          // let post = $(".post")[postIndex];
-          // let $commentsList = $(post).find('.comments-list');
-          // $commentsList.empty();
-          // let template = Handlebars.compile(this.$commentTemplate);
-          // for (let i = 0; i < posts[postIndex].comments.length; i++) {
-          //   let newHTML = template(posts[postIndex].comments[i]);
-          //   $commentsList.append(newHTML);
-          // }
+      async initPage(){
+          let answer = await newApi.fetch();
+          this.lesson = answer;
+          return this.lesson
+      }
+      async addLessons(lessonNum){
+          var newLesson = [{lessonNum}]
+          var answer = await $.ajax({
+              method:"POST",
+              url:'/home/',
+              data:newLesson
+          })
+          this.lesson.push(answer)
+      };
+      setTime() {
+        ++totalSeconds;
+        secondsLabel.innerHTML = pad(totalSeconds % 60);
+        minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+      }
+      pad(val) {
+        var valString = val + "";
+        if (valString.length < 2) {
+          return "0" + valString;
+        } else {
+          return valString;
+        }
       }
   }
+
   
   export default PostsRenderer

@@ -6,10 +6,10 @@ let postsRepository = new PostsRepository();
 let postsRenderer = new PostsRenderer();
 let eventsHandler = new EventsHandler(postsRepository, postsRenderer);
 
-// postsRepository.initialData().then((postFrompostreporsitory)=>{
+postsRepository.initPage().then((postFrompostreporsitory)=>{
   
-//   postsRenderer.renderPosts(postFrompostreporsitory);
-// })
+  postsRenderer.renderPosts(postFrompostreporsitory);
+})
 
 
 
