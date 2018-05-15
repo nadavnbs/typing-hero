@@ -8,13 +8,11 @@
           this.$commentTemplate = $('#comment-template').html();
       }
   
-
+      //render first line of lesson after lesson select. 
       renderinitLesson(lessonsFromServer, lessonNumIndex){
           
-        
-            ////////
-            var text = lessonsFromServer[lessonNumIndex].text; // mock data
-            var dataArr= text.split("") // mock data
+          var text = lessonsFromServer[lessonNumIndex].text; // mock data
+          var dataArr= text.split("") // mock data
           let highlight = "<span style='color:blue'>"+dataArr[0]+"</span>"
           var output="";
           output +=highlight;
@@ -23,8 +21,42 @@
           }
 
           $(".paragraph").append(output)
-
+          return text
           
+      }
+      // render cursor move after use start typing 
+      renderLesson (lessonsFromServer, lessonNumIndex){
+
+        var text = lessonsFromServer[lessonNumIndex].text
+          var dataArr = text.split("")
+          var output = "";
+          // var text = "gh gh gh gh ggg hhh ggg hhh ggg hhh"; // mock data
+          let y = 0;
+          $(window).on("keypress", function (e) {
+            let input = String.fromCharCode(e.which)
+            output = "";
+            if (input == dataArr[y]) {
+              $(".paragraph").empty();
+              for (let i = 0; i < dataArr.length; i++) {
+                if (y == i) {
+                  output += dataArr[i]
+                  let highlight = "<span style='color:blue'>" + dataArr[i + 1] + "</span>"
+                  output += highlight
+                  i++;
+                } else {
+                  if (dataArr[i]) {
+                    output += dataArr[i]
+                  }
+                }
+
+              }
+              y++;
+            }
+            $(".paragraph").append(output);
+
+          })
+
+
       }
 
 
