@@ -108,11 +108,11 @@ var lesson5 = new Lesson({
   }]
 })
 
-  lesson1.save();
-  lesson2.save();
-  lesson3.save();
-  lesson4.save();
-  lesson5.save();
+  // lesson1.save();
+  // lesson2.save();
+  // lesson3.save();
+  // lesson4.save();
+  // lesson5.save();
 
 ////
 var app = express();
