@@ -16,6 +16,8 @@ let eventsHandler = new EventsHandler(postsRepository, postsRenderer);
 //   postsRenderer.renderinitLesson(postFrompostreporsitory);})
 eventsHandler.registerLessonStart()
 eventsHandler.registerKey(); 
+eventsHandler.startTimer(); 
+eventsHandler.submitResult()
 
 // init data
 // wait for response

@@ -142,6 +142,17 @@ app.get("/lessons/:lessonnum", function(req,res){
 })
 
 
+app.post("/result/:lessonNum/stats", function(req,res){
+  lessonNum = req.params.lessonNum
+  newResult = {mistakes: req.body.mistakes, time:req.body.time }
+  Lesson.update({lessonNum:lessonNum}, { $push: { stats: newResult }}, 
+    function(err, result1) {
+    if (err) throw err;
+    else res.send(result1);
+  });
+})
+
+
 // app.get("/posts", function(req,res){
 //   Post.find({}, function(err, posts){
 //     if(err) console.log(err)

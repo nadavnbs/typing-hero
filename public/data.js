@@ -4,6 +4,7 @@
 class PostsRepository {
     constructor() {
         this.lessons = [];
+        this.mistakeSum = 0;
     }
   
       initLesson(){
@@ -15,13 +16,24 @@ class PostsRepository {
                     return lessonsFromServer
                   })
                   
-                  ////////
+                 
                 .catch(function (err) { res.send(err) })
       
                   
         
       }
+
+      addResult(newResult, lessonNum){
+          $.post("/result/"+lessonNum+"/stats", newResult)
+          .then(     )
+
+
+      }
       
+      mistakeSum(x){
+        this.mistakeSum=this.mistakeSum+x;
+        alert(this.mistakeSum)
+      }
 
       addPost(postText) {
         //send newPost via ajax post request to be saved in DB, inside the express file

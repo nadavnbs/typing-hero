@@ -2,15 +2,16 @@ class EventsHandler {
   constructor(postsRepository, postsRenderer) {
     this.postsRepository = postsRepository;
     this.postsRenderer = postsRenderer;
+    this.lessonNum;
     // this.$posts = $(".posts");
   }
 
 
   registerLessonStart() {
 
-    $("h1").on("click", () => {
-      let lessonNum = 1 //$(this).data().id
-      let lessonNumIndex = lessonNum - 1;
+    $(".lesson-opt").on("mousedown", (ev)=>{
+     this.lessonNum = $(ev.currentTarget).data().id
+      let lessonNumIndex = this.lessonNum - 1;
       this.postsRepository.initLesson(lessonNumIndex)
         .then((lessonsFromServer) => { this.postsRenderer.renderinitLesson(lessonsFromServer, lessonNumIndex) })
       // .then((text)=> {this.registerKey(text)}) 
@@ -20,9 +21,9 @@ class EventsHandler {
 
   registerKey() {
 
-    $("h1").on("click", () => {
-      let lessonNum = 1 //$(this).data().id
-      let lessonNumIndex = lessonNum - 1;
+    $(".lesson-opt").on("mousedown", (ev) => {
+      this.lessonNum = $(ev.currentTarget).data().id
+      let lessonNumIndex = this.lessonNum - 1;
       this.postsRepository.initLesson(lessonNumIndex)
       
         .then((lessonsFromServer) => {
@@ -32,8 +33,40 @@ class EventsHandler {
     
       }
 
+  startTimer(){
+    $(".lesson-opt").on("mousedown", (ev) => {
+      this.lessonNum = $(ev.currentTarget).data().id
+      this.postsRenderer.renderTimer(this.lessonNum)
+      // this.postsRenderer.mistake();
+    })}
+
+
+
+
+  submitResult(){
+    $(".submit-button").on("mousedown", (ev) => {
+     
+      let newResult = {mistakes:this.postsRenderer.mistakeSum, time:this.postsRenderer.secondsSum  }
+      this.postsRepository.addResult(newResult, this.lessonNum)
+      
+      //printing Report 
+      let lessonNumIndex = this.lessonNum - 1;
+      this.postsRepository.initLesson(lessonNumIndex)
+      
+      .then((lessonsFromServer) => {
+        
+        this.postsRenderer.renderReport(lessonsFromServer, lessonNumIndex)
+      })
+
+
+    })
+  
+  }
+
+  
   
 
+    
 
 
 
