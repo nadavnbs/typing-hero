@@ -4,9 +4,9 @@ class Api {
     fetch(){
         return $.ajax({
             method:"GET",
-            url:"/home"
+            url:"/lessons"
         })
     }
 }
-let newApi = new Api()
-export default newApi
+// let newApi = new Api()
+export default Api

@@ -18,16 +18,16 @@ mongoose.connect('mongodb://localhost/typingheroDB', function() {
 
 // });
 
-let statsSchema = new mongoose.Schema({
-  mistakes: Number,
-  time: Number
-})
+// let statsSchema = new mongoose.Schema({
+//   mistakes: Number,
+//   time: Number
+// })
 
-let lessonSchema = new mongoose.Schema({
-  lessonNum: Number,
-  text: String,
-  stats: [statsSchema]
-})
+// let lessonSchema = new mongoose.Schema({
+//   lessonNum: Number,
+//   text: String,
+//   stats: [statsSchema]
+// })
 
 
 
@@ -39,11 +39,11 @@ let lessonSchema = new mongoose.Schema({
 
 // let Post = mongoose.model('post', postSchema)
 
-let Lesson = mongoose.model("lesson", lessonSchema)
+// let Lesson = mongoose.model("lesson", lessonSchema)
 
 
 /////
-// var Lesson = require('./models/lessonModel');
+var Lesson = require('./models/lessonModel');
 ////
 
 ////
@@ -117,16 +117,17 @@ var lesson5 = new Lesson({
 var app = express();
 app.use(express.static('public'));
 app.use(express.static('node_modules'));
+app.use(express.static('models'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// app.get("/posts", function(req,res){
-//   Post.find({}, function(err, posts){
-//     if(err) console.log(err)
-//     res.json(posts)
-//   })
+app.get("/lessons", function(req,res){
+  Lesson.find({}, function(err, lessons){
+    if(err) console.log(err)
+    res.json(lessons)
+  })
 
-// })
+})
 
 // app.post("/", function(req,res){
 //   Post.create(req.body)
