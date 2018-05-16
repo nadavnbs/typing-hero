@@ -20,25 +20,27 @@
                     <h1>Typing Hero</h1>
                     <h3>Welcome to the website</h3>
                 </div>
+                <div class='lsn-btn-ctn'>
                 <button type="button" class="btn btn-primary lesson-opt" data-id='1'>Lesson 1</button>
                 <button type="button" class="btn btn-primary lesson-opt" data-id='2'>Lesson 2</button>
                 <button type="button" class="btn btn-primary lesson-opt" data-id='3'>Lesson 3</button>
                 <button type="button" class="btn btn-primary lesson-opt" data-id='4'>Lesson 4</button>
                 <button type="button" class="btn btn-primary lesson-opt" data-id='5'>Lesson 5</button>
+                </div>
                 <div class="Lessons-list"></div>
                 <div class='lesson-container'>
                     <div class="user-stats">
-                        <div class='timer'>Time:
+                        <div class='timer'><i class="fa fa-clock-o"></i> :
                             <span id="time-min"></span> 00 :
                             <span id="time-sec">00</span>
                         </div>
                         <div class='mistakes'>
-                            <span>Mistakes:
+                            <span><i class="fa fa-times-circle"></i> :
                                 <span class="mistakes">00</span>
                             </span>
                         </div>
                     </div>
-                        <p class='lesson-text'></p>
+                        <p class='lesson-text' type="text" placeholder="your text"></p>
                     </div>
                 <div id="container">
                     <ul id="keyboard">
@@ -163,7 +165,6 @@
                 </div>
                 <div class="button-container">
                     <button type="button" class="btn btn-success submit-button">Submit</button>
-                    <button type="button" class="btn btn-success home-button">Go To HomePage</button>
                 </div>
                 <div class="lesson-chosen">
                     <table class="stats" style="width:100%">
