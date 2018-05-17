@@ -27,11 +27,10 @@ class EventsHandler {
     }
 
     clickingButton() {
-        //var initDoc = $.extend({}, document);
-        //var tempDoc = $(document).clone();
+        
         $(document).on("keypress", function (e) {
             var letter = e.which;
-            //alert(letter);
+            
             var element = $("#keyboard").find("li[data-id=" + letter + "]");
             $(document).keydown(function () {
                 element.css("background-color", "white");
@@ -43,10 +42,9 @@ class EventsHandler {
                     $(document).off('keyup keydown');
                 }, 100);
             });
-            //$.extend(document,initDoc); 
+            
         })
-        //$(document).replaceWith(tempDoc.clone());
-        //var document = initDoc
+        
     }
 }
 

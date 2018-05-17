@@ -65,54 +65,39 @@ let Lesson = mongoose.model("lesson", lessonSchema)
 
 var lesson1 = new Lesson({
   lessonNum: 1,
-  text: "gh gh gh gh ggg hhh ggg hhh ggg hhhh", 
-  stats: [{
-    mistakes: 34,
-    time: 1800
-  }]
+  text: "hhh ggg hhh ggg hhhh", 
+  stats: []
 })
 
 var lesson2 = new Lesson({
   lessonNum: 2,
-  text: "fj fj fj fff jjj f jf jjfj jfj jfj", 
-  stats: [{
-    mistakes: 34,
-    time: 1800
-  }]
+  text: "fff jjj f jf jjfj jfj jfj", 
+  stats: []
 })
 
 var lesson3 = new Lesson({
   lessonNum: 3,
-  text: "dkdkdk dk dk kdk kdkkdkdk dkdk kdkk kdk ", 
-  stats: [{
-    mistakes: 10,
-    time: 2000
-  }]
+  text: "dk dk kdk kdkkdkdk dkdk kdkk kdk ", 
+  stats: []
 })
 
 var lesson4 = new Lesson({
   lessonNum: 4,
   text: "ty ty ty ty t ty yyy tt yy ttt ", 
-  stats: [{
-    mistakes: 87,
-    time: 8888
-  }]
+  stats: []
 })
 
 var lesson5 = new Lesson({
   lessonNum: 5,
-  text: "Sass is an extension of CSS3 which adds nested rules, variables, mixins, selector inheritance, and more. Sass generates well formatted CSS and makes your stylesheets easier to organize and maintain. ", 
-  stats: [{
-    mistakes: 66,
-    time: 3455
-  }]
+  text: "Sass is an extension of CSS3", 
+  stats: []
 })
 
-  lesson1.save();
-  lesson2.save();
-  lesson3.save();
-  lesson4.save();
-  lesson5.save();
+  // lesson1.save();
+  // lesson2.save();
+  // lesson3.save();
+  // lesson4.save();
+  // lesson5.save();
 
 ////
 var app = express();
@@ -120,6 +105,38 @@ app.use(express.static('public'));
 app.use(express.static('node_modules'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+
+app.get("/lessons", function(req,res){
+  Lesson.find({}, function(err, lessons){
+    if(err) console.log(err)
+    res.json(lessons)
+    console.log(lessons)
+  })
+
+})
+
+app.get("/lessons/:lessonnum", function(req,res){
+  lessonnum = req.params.lessonnum;
+  Lesson.find({lessonNum:lessonnum}, function(err, lessons){
+    if(err) console.log(err)
+    res.json(lessons)
+    console.log(lessons)
+  })
+
+})
+
+
+app.post("/result/:lessonNum/stats", function(req,res){
+  lessonNum = req.params.lessonNum
+  newResult = {mistakes: req.body.mistakes, time:req.body.time }
+  Lesson.update({lessonNum:lessonNum}, { $push: { stats: newResult }}, 
+    function(err, result1) {
+    if (err) throw err;
+    else res.send(result1);
+  });
+})
+
 
 // app.get("/posts", function(req,res){
 //   Post.find({}, function(err, posts){

@@ -1,94 +1,119 @@
 /**
-    * @class Responsible for rendering posts and comments in the HTML
-    */
+ * @class Responsible for rendering posts and comments in the HTML
+ */
 class PostsRenderer {
   constructor() {
-    this.$posts = $(".posts");
-    this.$postTemplate = $('#post-template').html();
-    this.$commentTemplate = $('#comment-template').html();
+    this.$report = $(".user-report");
+    this.$reportTemplate = $('#report-template').html();
+    this.$mistakeSum = document.getElementById('mistakes');
+
+    this.mistakeSum = 0;
+    this.secondsSum = 0;
+    this.timer;
+    this.dataArr = [];
+    this.rightButton = 0;
+
   }
 
   //render first line of lesson after lesson select. 
   renderinitLesson(lessonsFromServer, lessonNumIndex) {
+    this.rightButton = $("#keyboard").find("li");
+    this.rightButton.css("background-color", "white");
 
-    var text = lessonsFromServer[lessonNumIndex].text; // mock data
-    var dataArr = text.split("") // mock data
-    let highlight = "<span style='color:red'><strong>" + dataArr[0] + "</strong></span>"
-    var output = "";
+    $(".lesson-text").empty();
+    
+
+
+    let text = lessonsFromServer[lessonNumIndex].text;
+    this.dataArr = text.split("")
+    let highlight = "<span style='color:red; font-size:50px; text-decoration: underline; '><strong>" + this.dataArr[0] + "</strong></span>"
+    let output = "";
     output += highlight;
-    for (let i = 1; i < dataArr.length; i++) {
-      output += dataArr[i]
+    for (let i = 1; i < this.dataArr.length; i++) {
+      output += this.dataArr[i]
     }
 
     $(".lesson-text").append(output)
-    return text
 
   }
+
   // render cursor move after use start typing 
   renderLesson(lessonsFromServer, lessonNumIndex) {
 
-    var text = lessonsFromServer[lessonNumIndex].text
-    var dataArr = text.split("")
-    var output = "";
-    // var text = "gh gh gh gh ggg hhh ggg hhh ggg hhh"; // mock data
+    let text = lessonsFromServer[lessonNumIndex].text
+    this.dataArr = text.split("")
+    let output = "";
     let y = 0;
-    $(window).on("keypress", function (e) {
+    $(window).off("keypress")
+    $(window).on("keypress", (e) => {
 
       let input = String.fromCharCode(e.which)
       output = "";
-      if (input == dataArr[y]) {
+      if (input == this.dataArr[y]) {
         $(".lesson-text").empty();
-        for (let i = 0; i < dataArr.length; i++) {
+        for (let i = 0; i < this.dataArr.length; i++) {
           if (y == i) {
-            output += dataArr[i]
-            let highlight = "<span style='color:red'><strong>" + dataArr[i + 1] + "</strong></span>"
-            output += highlight
+            output += this.dataArr[i]
+            if (this.dataArr[i + 1]) {
+              let highlight = "<span style='color:red; font-size:50px; text-decoration: underline; ' ><strong>" + this.dataArr[i + 1] + "</strong></span>"
+              output += highlight
+            }
             i++;
           } else {
-            if (dataArr[i]) {
-              output += dataArr[i]
+            if (this.dataArr[i]) {
+              output += this.dataArr[i]
             }
           }
-
         }
         y++;
-      }
+      } 
       else {
-        var rightButton = $("#keyboard").find("li[data-id=" + dataArr[y] + "]");
-        rightButton.css("background-color", "yellow");
+        this.mistakeSum += 1;
+        this.$mistakeSum.innerText = `${this.mistakeSum}`;
+
+        this.rightButton = $("#keyboard").find("li[data-id=" + this.dataArr[y].charCodeAt(0) + "]");
+        this.rightButton.css("background-color", "#DAA520");
+
       }
+
       $(".lesson-text").append(output);
 
     })
 
+  }
+
+  renderReport(lessonsFromServer, lessonNumIndex) {
+
+    var lessonArr = lessonsFromServer[lessonNumIndex]
+    this.$report.empty();
+    let template = Handlebars.compile(this.$reportTemplate);
+    let newHTML = template(lessonArr);
+    this.$report.append(newHTML);
 
   }
 
+  renderTimer(lessonNum) {
+
+    this.secondsSum = 0;
+    var $timer = document.getElementById('time-sec');
+    this.timer = setInterval(() => {
+      this.secondsSum += 1;
+      let time = new Date(this.secondsSum * 1000).toISOString().substr(11, 8)
+      $timer.innerText = `${time}`;
+    }, 1000);
+  }
+
+  stopTimer() {
+    clearInterval(this.timer);
+  }
+
+  renewMistakes() {
+    this.mistakeSum = 0;
+    this.$mistakeSum.innerText = `${this.mistakeSum}`;
+  }
 
 
-  // renderPosts(posts) {
-
-  //       this.$posts.empty();
-  //       let template = Handlebars.compile(this.$postTemplate);
-  //       for (let i = 0; i < posts.length; i++) {
-  //         let newHTML = template(posts[i]);
-  //         console.log(newHTML);
-  //         this.$posts.append(newHTML);
-  //         this.renderComments(posts, i);
-  //       }
-
-  // }
-
-  // renderComments(posts, postIndex) {
-  //     let post = $(".post")[postIndex];
-  //     let $commentsList = $(post).find('.comments-list');
-  //     $commentsList.empty();
-  //     let template = Handlebars.compile(this.$commentTemplate);
-  //     for (let i = 0; i < posts[postIndex].comments.length; i++) {
-  //       let newHTML = template(posts[postIndex].comments[i]);
-  //       $commentsList.append(newHTML);
-  //     }
-  // }
 }
+
 
 export default PostsRenderer
