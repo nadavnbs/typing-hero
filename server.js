@@ -117,17 +117,21 @@ var lesson5 = new Lesson({
 var app = express();
 app.use(express.static('public'));
 app.use(express.static('node_modules'));
-app.use(express.static('models'));
+// app.use(express.static('models'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get("/lessons", function(req,res){
-  Lesson.find({}, function(err, lessons){
-    if(err) console.log(err)
-    res.json(lessons)
+  Lesson.find().exec(function(err, lessons){
+    if(err){
+      console.log(err)
+    }else{
+      console.log(lessons.stats)
+      res.send(lessons.stats)
+    }
   })
-
 })
+
 
 // app.post("/", function(req,res){
 //   Post.create(req.body)

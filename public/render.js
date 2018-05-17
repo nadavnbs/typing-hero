@@ -1,23 +1,27 @@
-import { Stats } from "fs";
+// import { Stats } from "fs";
 
-    /**
-     * @class Responsible for rendering posts and comments in the HTML
-     */
-    class PostsRenderer {
-      constructor() {
-          this.$report = $(".user-report");
-          this.$reportTemplate = $('#report-template').html();
-          // this.$commentTemplate = $('#comment-template').html();
-      }
-      reportRender(Stats){
-        this.$stats.empty();
-        let template = Handlebars.compile(this.$reportTemplate);
-        for(let i = 0;i<Stats.length;i++){
-          let newHTML = template(Stats[i])
-          this.$stats.append(newHTML);
-        }
-      }
+/**
+ * @class Responsible for rendering posts and comments in the HTML
+ */
+class PostsRenderer {
+  constructor() {
+    this.$report = $(".user-report");
+    this.$reportTemplate = $('#report-template').html();
+    // this.$commentTemplate = $('#comment-template').html();
   }
+  reportRender() {
+    this.lessons.empty();
+    let template = Handlebars.compile(this.$stats);
+    // let context = {mistakes:18,time:1800};
+    for (let i = 0; i < lessons.length; i++) {
+      let newHTML = template(lessons[i]);
+      console.log(newHTML);
+      this.lessons.append(newHTML);
+      //       this.render(lessons, i);
+    }
+  }
+
+}
 //   renderPosts(posts) {
 //     this.$posts.empty();
 //     let template = Handlebars.compile(this.$postTemplate);
@@ -28,4 +32,4 @@ import { Stats } from "fs";
 //       this.renderComments(posts, i);
 //     }
 // }
-  export default PostsRenderer
+export default PostsRenderer

@@ -99,7 +99,7 @@
 //   export default EventsHandler
 import postsRepository from './main.js'
 import postsRenderer from './main.js'
-import { Stats } from 'fs';
+// import { Stats } from 'fs';
 class EventsHandler {
     constructor(postsRepository, postsRenderer) {
       this.postsRepository = postsRepository;
@@ -114,12 +114,12 @@ class EventsHandler {
         var totalSeconds = 0;
         var secondsLabel = $("#time-sec");
         var minutesLabel = $("#time-min")
-        var time = setInterval(postsRepository.setTime(),1000)
+        // var time = setInterval(postsRepository.setTime(),1000)
         
         let lessonNum = 1 //$(this).data().id
         let lessonNumIndex = lessonNum - 1;
         this.postsRepository.initLesson(lessonNumIndex).then((lessonsFromServer) => { this.postsRenderer.renderinitLesson(lessonsFromServer, lessonNumIndex) 
-            this.postsRenderer.reportRender(Stats)})
+            this.postsRenderer.reportRender(lessonsFromServer)})
         // .then((text)=> {this.registerKey(text)}) 
       })
   
@@ -132,6 +132,7 @@ class EventsHandler {
         let lessonNumIndex = lessonNum - 1;
         this.postsRepository.initLesson(lessonNumIndex).then((lessonsFromServer) => {
             this.postsRenderer.renderLesson(lessonsFromServer, lessonNumIndex)
+            // this.postsRenderer.reportRender(lessons)
           })
           })
       

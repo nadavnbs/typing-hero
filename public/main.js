@@ -2,7 +2,7 @@ import PostsRepository from './data.js';
 import PostsRenderer from './render.js';
 import EventsHandler from './eventshandler.js'; 
 import Api from './api.js'
-import { Stats } from 'fs';
+// import { Stats } from 'fs';
 
 let newApi = new Api();
 let postsRepository = new PostsRepository();
@@ -14,7 +14,6 @@ let eventsHandler = new EventsHandler(postsRepository, postsRenderer);
 //   postsRenderer.renderPosts(postFrompostreporsitory);
 // })
 
-postsRenderer.reportRender(Stats)
 
 // init data
 // wait for response
@@ -25,5 +24,5 @@ eventsHandler.registerKey();
 // eventsHandler.registerToggleComments();
 // eventsHandler.registerAddComment();
 // eventsHandler.registerRemoveComment();
-export default postsRepository
-// export default postsRenderer
+export default {postsRepository}
+export {postsRenderer}
