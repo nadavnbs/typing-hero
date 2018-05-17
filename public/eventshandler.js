@@ -3,18 +3,22 @@ class EventsHandler {
     this.postsRepository = postsRepository;
     this.postsRenderer = postsRenderer;
     this.lessonNum;
-    // this.$posts = $(".posts");
+    this.element;
+  
   }
 
-
   registerLessonStart() {
-
+   
     $(".lesson-opt").on("mousedown", (ev)=>{
+    this.clickingButton();
+    this.postsRenderer.mistakeSum=0;
+    this.postsRenderer.dataArr = [];
+    this.postsRenderer.stopTimer();
+     this.postsRenderer.renewMistakes();
      this.lessonNum = $(ev.currentTarget).data().id
       let lessonNumIndex = this.lessonNum - 1;
       this.postsRepository.initLesson(lessonNumIndex)
         .then((lessonsFromServer) => { this.postsRenderer.renderinitLesson(lessonsFromServer, lessonNumIndex) })
-      // .then((text)=> {this.registerKey(text)}) 
     })
 
   }
@@ -37,15 +41,41 @@ class EventsHandler {
     $(".lesson-opt").on("mousedown", (ev) => {
       this.lessonNum = $(ev.currentTarget).data().id
       this.postsRenderer.renderTimer(this.lessonNum)
-      // this.postsRenderer.mistake();
+     
     })}
 
 
+    clickingButton() {
+      this.element = 0;
+      $(document).on("keypress", (e)=>{
+          let letter = e.which;
+          
+          this.element = $("#keyboard").find("li[data-id=" + letter + "]");
+          $(document).keydown(()=>{
+            this.element.css("background-color", "white");
+          });
+          $(document).keyup(()=>{
+            this.element.css("background-color", "#218838");
+              setTimeout(()=>{
+                this.element.css("background-color", "white");
+                  $(document).off('keyup keydown');
+              }, 100);
+          });
+          
+      })
+      
+  }
 
 
+
+
+
+
+  
   submitResult(){
     $(".submit-button").on("mousedown", (ev) => {
-     
+      this.postsRenderer.stopTimer();
+
       let newResult = {mistakes:this.postsRenderer.mistakeSum, time:this.postsRenderer.secondsSum  }
       this.postsRepository.addResult(newResult, this.lessonNum)
       
@@ -58,42 +88,8 @@ class EventsHandler {
         this.postsRenderer.renderReport(lessonsFromServer, lessonNumIndex)
       })
 
-
     })
-  
   }
-
-  
-  
-
-    
-
-
-
-
-
-
-  registerAddPost() {
-    // $('#addpost').on('click', () => { //async()=>{}
-    // let $input = $("#postText");
-    // if ($input.val() === "") {
-    //     alert("Please enter text!"); 
-    // } else {
-    //     this.postsRepository.addPost($input.val()) //await
-    //     .then(()=> 
-
-    //     this.postsRepository.initialData().then((postFrompostreporsitory)=>{
-
-    //         this.postsRenderer.renderPosts(postFrompostreporsitory);
-    //       })
-
-
-    // );
-
-    // }
-    // });        
-  }
-
 }
 
 

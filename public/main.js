@@ -6,25 +6,8 @@ let postsRepository = new PostsRepository();
 let postsRenderer = new PostsRenderer();
 let eventsHandler = new EventsHandler(postsRepository, postsRenderer);
 
-// postsRepository.initialData().then((postFrompostreporsitory)=>{
-  
-//   postsRenderer.renderPosts(postFrompostreporsitory);
-// })
-
-
-// postsRepository.initLesson().then((postFrompostreporsitory)=>{
-//   postsRenderer.renderinitLesson(postFrompostreporsitory);})
 eventsHandler.registerLessonStart()
 eventsHandler.registerKey(); 
 eventsHandler.startTimer(); 
 eventsHandler.submitResult()
-
-// init data
-// wait for response
-//render data to view
-
-// eventsHandler.registerAddPost();
-// eventsHandler.registerRemovePost();
-// eventsHandler.registerToggleComments();
-// eventsHandler.registerAddComment();
-// eventsHandler.registerRemoveComment();
+// eventsHandler.clickingButton();

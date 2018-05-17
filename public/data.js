@@ -30,10 +30,13 @@ class PostsRepository {
 
       }
       
-      mistakeSum(x){
-        this.mistakeSum=this.mistakeSum+x;
-        alert(this.mistakeSum)
-      }
+    
+
+
+
+
+
+      
 
       addPost(postText) {
         //send newPost via ajax post request to be saved in DB, inside the express file
