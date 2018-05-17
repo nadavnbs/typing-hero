@@ -3,6 +3,7 @@ body {
     background-repeat: repeat-x;
     background-size: cover;
     text-align: center;
+    height: 100%;
 }
 ul {
     list-style: none;
@@ -46,7 +47,7 @@ h1,h3 {
         height: 40px;
         line-height: 40px;
         text-align: center;
-        background: #fff;
+        background:white;
         border: 1px solid #f9f9f9;
         -moz-border-radius: 5px;
         -webkit-border-radius: 5px;
@@ -82,13 +83,20 @@ h1,h3 {
             .on {
             display: none;
             }
-            /* #keyboard li:hover {
+            #keyboard li:hover {
             position: relative;
             top: 1px;
             left: 1px;
             border-color: #e5e5e5;
             cursor: pointer;
-            } */
+            } 
+            #keyboard li:active  {
+                position: relative;
+                top: 1px;
+                left: 1px;
+                border-color: red;
+                cursor: pointer;
+                } 
             .lesson-text {
                 border: solid 1px black;
                 text-align: center;
@@ -97,6 +105,7 @@ h1,h3 {
                 background-color: lightgray;
                 width: 100%;
                 height: 50px;
+                overflow:hidden;
                 border-radius: 5px;
             }
             .user-stats {
@@ -154,3 +163,31 @@ h1,h3 {
             .lsn-btn-ctn{
                 padding: 10px;
             }
+            .page-header h1 {
+                color: #fff;
+                font-family: monospace;
+                overflow: hidden; /* Ensures the content is not revealed until the animation */
+                border-right: .15em solid orange; /* The typwriter cursor */
+                white-space: nowrap; /* Keeps the content on a single line */
+                margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+                letter-spacing: .5em; /* Adjust as needed */
+                animation: 
+                  typing 3s steps(30),
+                  blink-caret   infinite;
+                width: 22ch;
+              }
+              
+              /* The typing effect */
+              @keyframes typing {
+                0% { width: 0ch }
+                100% { width: 22ch }
+              }
+              
+              /* The typewriter cursor effect */
+              @keyframes blink-caret {
+                from, to { border-color: transparent }
+                100% { border-color: orange }
+              }
+              .keypress{
+                  background-color: green;
+              }

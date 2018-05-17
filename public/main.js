@@ -22,3 +22,4 @@ let eventsHandler = new EventsHandler(postsRepository, postsRenderer);
 // eventsHandler.registerToggleComments();
 // eventsHandler.registerAddComment();
 // eventsHandler.registerRemoveComment();
+eventsHandler.clickingButton();
