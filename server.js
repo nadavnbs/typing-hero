@@ -3,9 +3,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-const SERVER_PORT = 8080;
-
-mongoose.connect('mongodb://localhost/typingheroDB', function() {
+mongoose.connect(process.env.CONNECTION_STRING||'mongodb://localhost/typingheroDB', function() {
   console.log("DB connection established!!!");
 })
 
@@ -177,6 +175,6 @@ app.post("/result/:lessonNum/stats", function(req,res){
 // 4) to handle adding a comment to a post
 // 5) to handle deleting a comment from a post
 
-app.listen(SERVER_PORT, () => {
+app.listen(process.env.PORT || '8080', () => {
   console.log("Server started on port " + SERVER_PORT);
 });
